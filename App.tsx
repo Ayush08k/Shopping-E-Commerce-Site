@@ -91,6 +91,7 @@ const App: React.FC = () => {
         onGoToCheckout={handleGoToCheckout}
         onSelectCategory={handleSelectCategory}
         onOpenAuthModal={() => setIsAuthModalOpen(true)}
+        onSelectProduct={handleSelectProduct}
       />
       <main>
         {renderContent()}

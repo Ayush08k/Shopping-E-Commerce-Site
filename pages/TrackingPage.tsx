@@ -37,15 +37,15 @@ const TrackingPage: React.FC = () => {
             <form onSubmit={handleTrackOrder} className="mt-12">
               <div className="grid grid-cols-1 gap-y-6">
                 <div>
-                  <label htmlFor="order-id" className="block text-sm font-medium text-gray-700">Order ID</label>
+                  <label htmlFor="order-id" className="block text-sm font-semibold leading-6 text-gray-900">Order ID</label>
                   <div className="mt-1">
-                    <input type="text" name="order-id" id="order-id" required className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="e.g., VV12345" />
+                    <input type="text" name="order-id" id="order-id" required className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="e.g., VV12345" />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                  <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email Address</label>
                   <div className="mt-1">
-                    <input type="email" name="email" id="email" required autoComplete="email" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="you@example.com" />
+                    <input type="email" name="email" id="email" required autoComplete="email" className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="you@example.com" />
                   </div>
                 </div>
               </div>

@@ -1,19 +1,25 @@
 
 import React, { useState, useMemo } from 'react';
-import { CART_ITEMS } from '../constants';
-import { ShippingMethod } from '../types';
+import { CartItem, ShippingMethod } from '../types';
 import ChevronDownIcon from './icons/ChevronDownIcon';
+import TrashIcon from './icons/TrashIcon';
+import PlusIcon from './icons/PlusIcon';
+import MinusIcon from './icons/MinusIcon';
 
 interface OrderSummaryProps {
   shippingMethod: ShippingMethod;
+  cartItems: CartItem[];
+  onRemoveItem: (itemId: number) => void;
+  onIncreaseQuantity: (itemId: number) => void;
+  onDecreaseQuantity: (itemId: number) => void;
 }
 
-const OrderSummary: React.FC<OrderSummaryProps> = ({ shippingMethod }) => {
+const OrderSummary: React.FC<OrderSummaryProps> = ({ shippingMethod, cartItems, onRemoveItem, onIncreaseQuantity, onDecreaseQuantity }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const subtotal = useMemo(() => {
-    return CART_ITEMS.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  }, []);
+    return cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  }, [cartItems]);
 
   const taxes = subtotal * 0.08; // 8% tax rate
   const total = subtotal + taxes + shippingMethod.price;
@@ -33,32 +39,44 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ shippingMethod }) => {
       <div className={`${isOpen ? 'block' : 'hidden'} lg:block`}>
         <h2 id="summary-heading" className="hidden lg:block text-lg font-medium text-gray-900">Order summary</h2>
         
-        <ul role="list" className="mt-6 divide-y divide-gray-200">
-          {CART_ITEMS.map((item) => (
-            <li key={item.id} className="flex py-6">
-              <div className="flex-shrink-0">
-                <img src={item.product.images[0]} alt={item.product.name} className="h-24 w-24 rounded-md object-cover object-center" loading="lazy" decoding="async" width="96" height="96" />
-              </div>
-              <div className="ml-4 flex flex-1 flex-col">
-                <div>
-                  <div className="flex justify-between text-base font-medium text-gray-900">
-                    <h3>{item.product.name}</h3>
-                    <p className="ml-4">${(item.product.price * item.quantity).toFixed(2)}</p>
-                  </div>
-                  <p className="mt-1 text-sm text-gray-500">{item.color}, {item.size}</p>
+        {cartItems.length > 0 ? (
+            <ul role="list" className="mt-6 divide-y divide-gray-200">
+            {cartItems.map((item) => (
+                <li key={item.id} className="flex py-6">
+                <div className="flex-shrink-0">
+                    <img src={item.product.images[0]} alt={item.product.name} className="h-24 w-24 rounded-md object-cover object-center" loading="lazy" decoding="async" width="96" height="96" />
                 </div>
-                <div className="flex flex-1 items-end justify-between text-sm">
-                  <p className="text-gray-500">Qty {item.quantity}</p>
+                <div className="ml-4 flex flex-1 flex-col">
+                    <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h3>{item.product.name}</h3>
+                        <p className="ml-4">${(item.product.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">{item.color}, {item.size}</p>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                        <div className="flex items-center border border-gray-300 rounded">
+                            <button type="button" onClick={() => onDecreaseQuantity(item.id)} className="px-2 py-1 text-gray-600 hover:bg-gray-200 rounded-l-md"><MinusIcon className="h-4 w-4" /></button>
+                            <span className="px-3 text-gray-700 text-base font-medium">{item.quantity}</span>
+                            <button type="button" onClick={() => onIncreaseQuantity(item.id)} className="px-2 py-1 text-gray-600 hover:bg-gray-200 rounded-r-md"><PlusIcon className="h-4 w-4" /></button>
+                        </div>
+                        <button type="button" onClick={() => onRemoveItem(item.id)} className="font-medium text-red-600 hover:text-red-500 p-1">
+                            <TrashIcon className="h-5 w-5" />
+                        </button>
+                    </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+                </li>
+            ))}
+            </ul>
+        ) : (
+            <p className="text-center text-gray-500 mt-6">Your cart is empty.</p>
+        )}
+
 
         <form className="mt-6">
           <label htmlFor="promo-code" className="block text-sm font-medium text-gray-700">Promo code</label>
           <div className="flex space-x-4 mt-1">
-            <input type="text" id="promo-code" name="promo-code" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+            <input type="text" id="promo-code" name="promo-code" className="block w-full rounded-md border-gray-600 bg-gray-700 text-white placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-1.5" />
             <button type="submit" className="rounded-md bg-gray-200 px-4 text-sm font-medium text-gray-600 hover:bg-gray-300">Apply</button>
           </div>
         </form>

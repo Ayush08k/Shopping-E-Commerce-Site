@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { SHIPPING_METHODS } from '../constants';
-import { ShippingMethod } from '../types';
+import { SHIPPING_METHODS, CART_ITEMS } from '../constants';
+import { ShippingMethod, CartItem } from '../types';
 import ProgressBar from '../components/ProgressBar';
 import OrderSummary from '../components/OrderSummary';
 import ShippingStep from '../components/ShippingStep';
@@ -14,6 +14,7 @@ const CheckoutPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(SHIPPING_METHODS[0]);
   const [animationClass, setAnimationClass] = useState('animate-fade-in');
+  const [cartItems, setCartItems] = useState<CartItem[]>(CART_ITEMS);
 
   const steps: CheckoutStep[] = ['shipping', 'payment', 'review'];
   const currentStepIndex = steps.indexOf(currentStep);
@@ -30,6 +31,30 @@ const CheckoutPage: React.FC = () => {
       setAnimationClass('animate-slide-in-left');
       setCurrentStep(steps[currentStepIndex - 1]);
     }
+  };
+  
+  const handleRemoveItem = (itemId: number) => {
+    setCartItems(currentItems => currentItems.filter(item => item.id !== itemId));
+  };
+  
+  const handleIncreaseQuantity = (itemId: number) => {
+    setCartItems(currentItems => currentItems.map(item => 
+      item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+    ));
+  };
+
+  const handleDecreaseQuantity = (itemId: number) => {
+    setCartItems(currentItems => {
+        const itemToUpdate = currentItems.find(item => item.id === itemId);
+        if (itemToUpdate && itemToUpdate.quantity > 1) {
+            return currentItems.map(item =>
+                item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
+            );
+        } else {
+            // Remove item if quantity is 1 or less
+            return currentItems.filter(item => item.id !== itemId);
+        }
+    });
   };
 
   const renderStepContent = () => {
@@ -57,7 +82,13 @@ const CheckoutPage: React.FC = () => {
             </div>
           </section>
 
-          <OrderSummary shippingMethod={shippingMethod} />
+          <OrderSummary 
+            shippingMethod={shippingMethod} 
+            cartItems={cartItems}
+            onRemoveItem={handleRemoveItem}
+            onIncreaseQuantity={handleIncreaseQuantity}
+            onDecreaseQuantity={handleDecreaseQuantity}
+          />
         </div>
       </div>
     </div>

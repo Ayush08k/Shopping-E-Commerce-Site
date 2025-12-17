@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ShoppingCartIcon from './icons/ShoppingCartIcon';
 import XIcon from './icons/XIcon';
-import { Category } from '../types';
-import { CATEGORIES } from '../constants';
+import { Category, Product } from '../types';
+import { CATEGORIES, PRODUCTS } from '../constants';
 
 interface HeaderProps {
   onGoHome: () => void;
@@ -11,10 +11,55 @@ interface HeaderProps {
   onGoToCheckout: () => void;
   onSelectCategory: (category: Category) => void;
   onOpenAuthModal: () => void;
+  onSelectProduct: (product: Product) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout, onSelectCategory, onOpenAuthModal }) => {
+const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout, onSelectCategory, onOpenAuthModal, onSelectProduct }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (searchQuery.trim().length > 1) {
+        const lowercasedQuery = searchQuery.toLowerCase();
+        const results = PRODUCTS.filter(product =>
+          product.name.toLowerCase().includes(lowercasedQuery) ||
+          product.category.toLowerCase().includes(lowercasedQuery)
+        );
+        setSearchResults(results);
+    } else {
+        setSearchResults([]);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+        if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+            setIsSearchOpen(false);
+        }
+    };
+    const handleEscapeKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            setIsSearchOpen(false);
+        }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, []);
+  
+  const handleProductSelect = (product: Product) => {
+    onSelectProduct(product);
+    setSearchQuery('');
+    setSearchResults([]);
+    setIsSearchOpen(false);
+  };
 
   const handleCategoryClick = (categoryName: Category['name']) => {
     const category = CATEGORIES.find(c => c.name === categoryName);
@@ -52,9 +97,43 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout,
           </nav>
 
           <div className="flex items-center space-x-4">
-            <button className="text-gray-500 hover:text-indigo-600">
-              <SearchIcon className="h-6 w-6" />
-            </button>
+            <div ref={searchContainerRef} className="relative">
+                <div className="relative">
+                    <input 
+                        type="text" 
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onFocus={() => setIsSearchOpen(true)}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-32 md:w-48 lg:w-64 pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                    />
+                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                </div>
+                {isSearchOpen && searchQuery && (
+                    <div className="absolute top-full mt-2 w-full lg:w-96 max-h-96 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg z-10 right-0">
+                        {searchResults.length > 0 ? (
+                            <ul>
+                                {searchResults.map(product => (
+                                    <li key={product.id}>
+                                        <button onClick={() => handleProductSelect(product)} className="w-full text-left flex items-center p-3 hover:bg-gray-100 transition-colors duration-150">
+                                            <img src={product.images[0]} alt={product.name} className="w-12 h-12 object-cover rounded-md mr-4 flex-shrink-0" loading="lazy" decoding="async" width="48" height="48" />
+                                            <div>
+                                                <p className="font-medium text-gray-800 text-sm">{product.name}</p>
+                                                <p className="text-xs text-gray-500">{product.category}</p>
+                                            </div>
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="p-4 text-center text-gray-500 text-sm">
+                                No products found.
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+
             <button onClick={onOpenAuthModal} className="text-gray-500 hover:text-indigo-600">
               <UserIcon className="h-6 w-6" />
             </button>

@@ -58,22 +58,22 @@ const ContactForm: React.FC = () => {
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
-          <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}/>
+          <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">Full Name</label>
+          <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className={`mt-1 block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.name ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-600 focus:ring-indigo-500'}`}/>
           {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}/>
+          <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+          <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className={`mt-1 block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.email ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-600 focus:ring-indigo-500'}`}/>
           {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
         </div>
         <div>
-          <label htmlFor="orderNumber" className="block text-sm font-medium text-gray-700">Order Number <span className="text-gray-500">(Optional)</span></label>
-          <input type="text" name="orderNumber" id="orderNumber" value={formData.orderNumber} onChange={handleChange} placeholder="e.g., VV12345" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"/>
+          <label htmlFor="orderNumber" className="block text-sm font-semibold leading-6 text-gray-900">Order Number <span className="text-gray-500 font-normal">(Optional)</span></label>
+          <input type="text" name="orderNumber" id="orderNumber" value={formData.orderNumber} onChange={handleChange} placeholder="e.g., VV12345" className="mt-1 block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"/>
         </div>
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700">Subject</label>
-          <select id="subject" name="subject" value={formData.subject} onChange={handleChange} className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${errors.subject ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}>
+          <label htmlFor="subject" className="block text-sm font-semibold leading-6 text-gray-900">Subject</label>
+          <select id="subject" name="subject" value={formData.subject} onChange={handleChange} className={`mt-1 block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.subject ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-600 focus:ring-indigo-500'}`}>
             <option value="">Please select</option>
             <option>Order Inquiry</option>
             <option>Return/Exchange</option>
@@ -83,8 +83,8 @@ const ContactForm: React.FC = () => {
           {errors.subject && <p className="mt-2 text-sm text-red-600">{errors.subject}</p>}
         </div>
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-          <textarea id="message" name="message" rows={4} value={formData.message} onChange={handleChange} className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}></textarea>
+          <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Message</label>
+          <textarea id="message" name="message" rows={4} value={formData.message} onChange={handleChange} className={`mt-1 block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.message ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-600 focus:ring-indigo-500'}`}></textarea>
           {errors.message && <p className="mt-2 text-sm text-red-600">{errors.message}</p>}
         </div>
         <div>

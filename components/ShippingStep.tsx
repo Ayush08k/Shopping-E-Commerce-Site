@@ -17,30 +17,30 @@ const ShippingStep: React.FC<ShippingStepProps> = ({ onNext, selectedMethod, onS
       <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
         {/* Form fields... */}
         <div className="sm:col-span-2">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+          <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email address</label>
           <div className="mt-1">
-            <input type="email" id="email" name="email" autoComplete="email" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+            <input type="email" id="email" name="email" autoComplete="email" className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
           </div>
         </div>
         
         <div>
-          <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">First name</label>
+          <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">First name</label>
           <div className="mt-1">
-            <input type="text" id="first-name" name="first-name" autoComplete="given-name" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+            <input type="text" id="first-name" name="first-name" autoComplete="given-name" className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
           </div>
         </div>
 
         <div>
-          <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">Last name</label>
+          <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
           <div className="mt-1">
-            <input type="text" id="last-name" name="last-name" autoComplete="family-name" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+            <input type="text" id="last-name" name="last-name" autoComplete="family-name" className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
           </div>
         </div>
 
         <div className="sm:col-span-2">
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+            <label htmlFor="address" className="block text-sm font-semibold leading-6 text-gray-900">Address</label>
             <div className="mt-1">
-                <input type="text" name="address" id="address" autoComplete="street-address" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                <input type="text" name="address" id="address" autoComplete="street-address" className="block w-full rounded-md border-0 py-1.5 px-3 bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
             </div>
         </div>
         
