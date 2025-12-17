@@ -9,6 +9,7 @@ import OffersPage from './pages/OffersPage';
 import CheckoutPage from './pages/CheckoutPage';
 import TrackingPage from './pages/TrackingPage';
 import ContactPage from './pages/ContactPage';
+import AuthModal from './components/AuthModal';
 import { Category, Product } from './types';
 
 type View = 
@@ -22,6 +23,7 @@ type View =
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>({ page: 'home' });
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,11 +85,18 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-gray-50 text-gray-800 font-sans">
-      <Header onGoHome={handleGoHome} onGoToOffers={handleGoToOffers} onGoToCheckout={handleGoToCheckout} />
+      <Header 
+        onGoHome={handleGoHome} 
+        onGoToOffers={handleGoToOffers} 
+        onGoToCheckout={handleGoToCheckout}
+        onSelectCategory={handleSelectCategory}
+        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+      />
       <main>
         {renderContent()}
       </main>
       <Footer onGoToTracking={handleGoToTracking} onGoToContact={handleGoToContact} />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };

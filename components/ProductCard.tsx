@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelectProduct }) =
         <img
           src={images[0]}
           alt={name}
-          className="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+          className="w-full h-full object-cover object-center transition-transform duration-200 ease-in-out group-hover:scale-110"
           loading="lazy"
           decoding="async"
           width="800"
@@ -34,17 +34,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelectProduct }) =
               e.stopPropagation(); // Prevent card click event
               setIsWishlisted(!isWishlisted)
             }}
-          className="absolute top-3 right-3 bg-white p-2 rounded-full text-gray-500 hover:text-red-500 transition-all duration-200 z-10"
+          className="absolute top-3 right-3 bg-white p-2 rounded-full text-gray-500 hover:text-red-500 transition-all duration-200 z-10 hover:scale-110 active:scale-100"
           aria-label="Add to wishlist"
         >
           <HeartIcon className={`h-6 w-6 ${isWishlisted ? 'text-red-500 fill-current' : 'text-gray-500'}`} />
         </button>
       </div>
       <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-        <button className="bg-white p-3 rounded-full text-gray-800 hover:bg-indigo-600 hover:text-white transition-all duration-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-100 hover:scale-110 active:scale-100">
+        <button className="bg-white p-3 rounded-full text-gray-800 hover:bg-indigo-600 hover:text-white transition-all duration-200 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-100 hover:scale-110 active:scale-100">
           <EyeIcon className="h-6 w-6" />
         </button>
-        <button className="bg-white p-3 rounded-full text-gray-800 hover:bg-indigo-600 hover:text-white transition-all duration-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-200 hover:scale-110 active:scale-100">
+        <button className="bg-white p-3 rounded-full text-gray-800 hover:bg-indigo-600 hover:text-white transition-all duration-200 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-200 hover:scale-110 active:scale-100">
           <ShoppingCartIcon className="h-6 w-6" />
         </button>
       </div>

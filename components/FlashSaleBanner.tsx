@@ -53,7 +53,7 @@ const FlashSaleBanner: React.FC<FlashSaleBannerProps> = ({ onGoToOffers }) => {
           <p className="mt-4 text-lg text-gray-300 max-w-2xl">
             Unbeatable deals on your favorite styles. Don't wait, these prices won't last long!
           </p>
-          <button onClick={onGoToOffers} className="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 transform hover:scale-105 active:scale-95">
+          <button onClick={onGoToOffers} className="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-200 transform hover:scale-105 active:scale-95">
             View Offers
           </button>
         </div>

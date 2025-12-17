@@ -44,7 +44,7 @@ const HeroSection: React.FC = () => {
                 <p className="text-lg md:text-2xl mb-8 drop-shadow-md">{slide.subtitle}</p>
                 <a
                   href={slide.ctaLink}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
                 >
                   {slide.ctaText}
                 </a>

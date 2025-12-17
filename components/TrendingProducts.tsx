@@ -29,7 +29,7 @@ const TrendingProducts: React.FC<TrendingProductsProps> = ({ onSelectProduct }) 
           ))}
         </div>
         <div className="mt-12 text-center">
-            <a href="#" className="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-300 hover:bg-indigo-700 transform hover:scale-105 active:scale-95">
+            <a href="#" className="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-md text-lg transition-all duration-200 hover:bg-indigo-700 transform hover:scale-105 active:scale-95">
                 View All Products
             </a>
         </div>

@@ -2,21 +2,33 @@
 import React, { useState } from 'react';
 import ShoppingCartIcon from './icons/ShoppingCartIcon';
 import XIcon from './icons/XIcon';
+import { Category } from '../types';
+import { CATEGORIES } from '../constants';
 
 interface HeaderProps {
   onGoHome: () => void;
   onGoToOffers: () => void;
   onGoToCheckout: () => void;
+  onSelectCategory: (category: Category) => void;
+  onOpenAuthModal: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout }) => {
+const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout, onSelectCategory, onOpenAuthModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleCategoryClick = (categoryName: Category['name']) => {
+    const category = CATEGORIES.find(c => c.name === categoryName);
+    if (category) {
+      onSelectCategory(category);
+    }
+  };
 
   const navLinks = [
     { name: 'Home', action: onGoHome },
-    { name: 'Men', action: () => {} }, // Placeholder for category navigation
-    { name: 'Women', action: () => {} },
-    { name: 'Children', action: () => {} },
+    { name: 'Men', action: () => handleCategoryClick('Men') },
+    { name: 'Women', action: () => handleCategoryClick('Women') },
+    { name: 'Children', action: () => handleCategoryClick('Children') },
+    { name: 'Shoes', action: () => handleCategoryClick('Shoes') },
     { name: 'Offers', action: onGoToOffers },
   ];
 
@@ -43,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ onGoHome, onGoToOffers, onGoToCheckout 
             <button className="text-gray-500 hover:text-indigo-600">
               <SearchIcon className="h-6 w-6" />
             </button>
-            <button className="text-gray-500 hover:text-indigo-600">
+            <button onClick={onOpenAuthModal} className="text-gray-500 hover:text-indigo-600">
               <UserIcon className="h-6 w-6" />
             </button>
             <button onClick={onGoToCheckout} className="relative text-gray-500 hover:text-indigo-600">
